@@ -27,6 +27,14 @@ class ItalianFiscalCodeCalculatorTest {
                 Arguments.of(
                         Person.builder().firstName("Caterina").lastName("Bianchi").dateOfBirth(LocalDate.of(1954, 12, 31)).gender(Gender.Female).placeOfBirthCode("A001").build(),
                         "BNCCRN54T71A001C"
+                ),
+                Arguments.of(
+                        Person.builder().firstName("Matteo").lastName("Moretti").dateOfBirth(LocalDate.of(1991, 4, 8)).gender(Gender.Male).placeOfBirthCode("F205").build(),
+                        "MRTMTT91D08F205J"
+                ),
+                Arguments.of(
+                        Person.builder().firstName("Samantha").lastName("Miller").dateOfBirth(LocalDate.of(1982, 9, 25)).gender(Gender.Female).placeOfBirthCode("Z404").build(),
+                        "MLLSNT82P65Z404U"
                 )
         );
     }
