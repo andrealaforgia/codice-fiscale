@@ -1,0 +1,77 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Java compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Build system files
+/build/
+/bin/
+/target/
+/dist/
+
+# Maven specific
+.mvn/
+!**/src/main/**/.mvn/
+!**/src/test/**/.mvn/
+**/pom.xml.tag
+**/pom.xml.releaseBackup
+**/pom.xml.versionsBackup
+**/pom.xml.next
+**/release.properties
+**/dependency-reduced-pom.xml
+**/buildNumber.properties
+**/.m2/repository/
+
+# Gradle specific
+.gradle/
+/build/
+**/gradle-app.setting
+!gradle-wrapper.jar
+**/gradlew
+**/gradlew.bat
+
+# Logs
+logs/
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.class
+*.exe
+*.dll
+*.so
+*.dylib
+*.log
+*.swp
+
+# Lombok cache
+.lombok/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Coverage and test reports
+/coverage/
+/test-results/
+/hs_err_pid*
+
+# Miscellaneous
+*.lock
+*.bak
+
+# JetBrains sensitive data
+/shelf/
+/workspace.xml
