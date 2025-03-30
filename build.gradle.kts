@@ -29,6 +29,12 @@ pitest {
     reportDir.set(file("./target/pit-reports"))
     targetClasses.set(listOf("com.andrealaforgia.italianfiscalcode.*"))
     targetTests.set(listOf("com.andrealaforgia.italianfiscalcode.*"))
+
+    // Enable HTML report generation (default)
+    mutators.set(listOf("ALL"))
+
+    // Generate additional report formats (e.g., XML, CSV)
+    outputFormats.set(listOf("HTML", "XML", "CSV"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
