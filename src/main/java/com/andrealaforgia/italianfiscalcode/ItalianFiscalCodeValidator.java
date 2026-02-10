@@ -8,8 +8,8 @@ public class ItalianFiscalCodeValidator {
         if (isNotFiscalCode(fiscalCode)) {
             throw new IllegalArgumentException("Invalid fiscal code");
         }
-        String encodedPerson = fiscalCode.substring(0, 15);
-        return encodedPerson + ItalianFiscalCodeCheckDigitCalculator.calculate(encodedPerson);
+        return ItalianFiscalCodeCheckDigitCalculator.appendCheckDigit(
+                fiscalCode.substring(0, ItalianFiscalCodeCheckDigitCalculator.ENCODED_PERSON_LENGTH));
     }
 
     private static boolean isNotFiscalCode(String fiscalCode) {
@@ -17,9 +17,9 @@ public class ItalianFiscalCodeValidator {
     }
 
     private static boolean isFiscalCode(String fiscalCode) {
-        if (StringUtils.isEmpty(fiscalCode) || fiscalCode.length() != 16) {
+        if (StringUtils.isEmpty(fiscalCode) || fiscalCode.length() != ItalianFiscalCodeCheckDigitCalculator.FISCAL_CODE_LENGTH) {
             return false;
         }
-        return fiscalCode.chars().allMatch(c -> Character.isAlphabetic(c) || Character.isDigit(c));
+        return fiscalCode.chars().allMatch(character -> Character.isAlphabetic(character) || Character.isDigit(character));
     }
 }

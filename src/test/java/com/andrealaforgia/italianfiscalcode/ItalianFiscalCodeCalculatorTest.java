@@ -18,6 +18,30 @@ class ItalianFiscalCodeCalculatorTest {
         assertThat(fiscalCode).isEqualTo(expectedFiscalCode);
     }
 
+    static class TaxCodeCalculationTestScope {
+        Person person;
+        String calculatedTaxCode;
+
+        public void givenPerson(Person person) {
+            this.person = person;
+        }
+
+        public void whenCalculatingTaxCode() {
+            calculatedTaxCode = ItalianFiscalCodeCalculator.calculate(person);
+        }
+
+        public void thenTaxCodeIs(String expectedTaxCode) {
+            assertThat(calculatedTaxCode).isEqualTo(expectedTaxCode);
+        }
+    }
+
+    void shouldCalculateTaxCode(Person person, String expectedTaxCode) {
+        TaxCodeCalculationTestScope scope = new TaxCodeCalculationTestScope();
+        scope.givenPerson(person);
+        scope.whenCalculatingTaxCode();
+        scope.thenTaxCodeIs(expectedTaxCode);
+    }
+
     private static Stream<Arguments> provideParameters() {
         return Stream.of(
                 Arguments.of(

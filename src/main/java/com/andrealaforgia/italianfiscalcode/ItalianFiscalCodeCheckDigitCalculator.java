@@ -4,6 +4,10 @@ package com.andrealaforgia.italianfiscalcode;
 import org.apache.commons.lang3.StringUtils;
 
 public class ItalianFiscalCodeCheckDigitCalculator {
+    static final int ENCODED_PERSON_LENGTH = 15;
+    static final int FISCAL_CODE_LENGTH = ENCODED_PERSON_LENGTH + 1;
+    private static final int ALPHABET_SIZE = 26;
+    private static final int DIGIT_TO_LETTER_OFFSET = 10;
     private static final String CHECK_DIGITS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private static final int[] ODD_CHAR_VALUES = new int[]{
@@ -19,27 +23,31 @@ public class ItalianFiscalCodeCheckDigitCalculator {
             18, 19, 20, 21, 22, 23, 24, 25
     };
 
+    static String appendCheckDigit(String encodedPerson) {
+        return encodedPerson + calculate(encodedPerson);
+    }
+
     public static char calculate(String encodedPerson) {
-        if (StringUtils.isEmpty(encodedPerson) || encodedPerson.length() != 15) {
+        if (StringUtils.isEmpty(encodedPerson) || encodedPerson.length() != ENCODED_PERSON_LENGTH) {
             throw new IllegalArgumentException("Invalid encoded person data");
         }
         int sum = 0;
-        for (int i=0; i<encodedPerson.length(); i++) {
-            int[] values = isOdd(i+1) ? ODD_CHAR_VALUES : EVEN_CHAR_VALUES;
-            if (Character.isDigit(encodedPerson.charAt(i))) {
-                sum += values[encodedPerson.charAt(i)-'0'];
+        for (int charIndex = 0; charIndex < encodedPerson.length(); charIndex++) {
+            int[] values = isOdd(charIndex + 1) ? ODD_CHAR_VALUES : EVEN_CHAR_VALUES;
+            if (Character.isDigit(encodedPerson.charAt(charIndex))) {
+                sum += values[encodedPerson.charAt(charIndex) - '0'];
             } else {
-                sum += values[encodedPerson.charAt(i)-'A' + 10];
+                sum += values[encodedPerson.charAt(charIndex) - 'A' + DIGIT_TO_LETTER_OFFSET];
             }
         }
-        return CHECK_DIGITS.charAt(sum % 26);
+        return CHECK_DIGITS.charAt(sum % ALPHABET_SIZE);
     }
 
-    private static boolean isOdd(int i) {
-        return !isEven(i);
+    private static boolean isOdd(int position) {
+        return !isEven(position);
     }
 
-    private static boolean isEven(int i) {
-        return (i % 2) == 0;
+    private static boolean isEven(int position) {
+        return (position % 2) == 0;
     }
 }
